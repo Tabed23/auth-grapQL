@@ -62,10 +62,15 @@ func (u *UserStore) UserGetByID(ctx context.Context, id string) (*model.User, er
 
 // UserDelete implements repository.UserRepository.
 func (u *UserStore) UserDelete(ctx context.Context, email string) error {
-	usr := model.User{}
-	if err := u.store.Delete(&usr, email).Error; err != nil {
+	user, err := u.UserGetByEmail(ctx, email)
+	if err != nil {
 		return err
 	}
+
+	if err := u.store.Delete(&model.User{},"email = ?", user.Email).Error; err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -76,8 +81,12 @@ func (u *UserStore) UserUpdate(ctx context.Context, email string, user *model.Ne
 		Email:    user.Email,
 		Password: user.Password,
 	}
+	foundUser, err := u.UserGetByEmail(ctx, email)
+	if err != nil {
+		return "", err
+	}
 
-	if err := u.store.Where("email = ?", email).Updates(&usr).Error; err != nil {
+	if err := u.store.Where("id = ?", foundUser.ID).Updates(&usr).Error; err != nil {
 		return fmt.Sprintf("Cannot update the user with email %s", email), nil
 	}
 
