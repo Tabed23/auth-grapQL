@@ -27,6 +27,7 @@ type AuthOps {
 
 type Query {
   user(id: ID!): User! @goField(forceResolver: true)
+  userEmail(email: String!): User! @goField(forceResolver: true)
 
   # Add Protected Resource
   protected: String! @goField(forceResolver: true) @auth
