@@ -1,6 +1,5 @@
 .PHONY: all build test clean gqlgen run
 
-
 GQLGEN_CMD=go run github.com/99designs/gqlgen generate
 GQLGEN_INIT=go run github.com/99designs/gqlgen init
 GOCMD=go
@@ -24,5 +23,5 @@ fmt:
 
 publish:
 	git add .
-	git commit -m "update"
+	git commit -m "$(MESSAGE)"
 	git push origin main
