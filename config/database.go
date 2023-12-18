@@ -42,12 +42,13 @@ func initConfig() *gorm.Config {
 
 // InitLog Connection Log Configuration
 func initLog() logger.Interface {
-	newLogger := logger.New(log.New(os.Stdout, "\r\n", log.LstdFlags), 
-	logger.Config{
-		Colorful:      true,
-		LogLevel:      logger.Info,
-		SlowThreshold: time.Second,
-	})
+
+	newLogger := logger.New(log.New(os.Stdout, "\r\n", log.LstdFlags),
+		logger.Config{
+			Colorful:      true,
+			LogLevel:      logger.Info,
+			SlowThreshold: time.Second,
+		})
 	return newLogger
 }
 

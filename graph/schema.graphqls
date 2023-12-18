@@ -35,4 +35,6 @@ type Query {
 
 type Mutation {
   auth: AuthOps! @goField(forceResolver: true)
+  deleteUser(email: String!): String!
+  updateUser(email: String!, input: NewUser): String!
 }

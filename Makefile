@@ -5,7 +5,7 @@ GQLGEN_CMD=go run github.com/99designs/gqlgen generate
 GQLGEN_INIT=go run github.com/99designs/gqlgen init
 GOCMD=go
 GOBUILD=$(GOCMD) build
-
+GOFMT=find . -name '*.go' -exec go fmt {} \;
 
 gen:
 	$(GQLGEN_CMD)
@@ -18,3 +18,11 @@ init:
 
 package:
 	$(GOCMD) mod tidy
+
+fmt:
+	$(GOFMT)
+
+publish:
+	git add .
+	git commit -m "update"
+	git push origin main
