@@ -28,12 +28,12 @@ func main() {
 	}
 
 	database := config.ConnectDB()
-	
+
 	r := mux.NewRouter()
 	r.Use(middleware.AuthMiddleware)
-	
+
 	store := store.NewUserStore(database)
-	
+
 	c := graph.Config{Resolvers: &graph.Resolver{UserRepository: store}}
 	c.Directives.Auth = middleware.Auth
 

@@ -26,10 +26,10 @@ func NewUserStore(db *gorm.DB) repository.UserRepository {
 func (u *UserStore) UserCreate(ctx context.Context, input model.NewUser) (*model.User, error) {
 	input.Password = utils.HashPassword(input.Password)
 	usr := model.User{
-		ID:       uuid.New().String(),
-		Name:     input.Name,
-		Email:    input.Email,
-		Password: input.Password,
+		ID:        uuid.New().String(),
+		Name:      input.Name,
+		Email:     input.Email,
+		Password:  input.Password,
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 	}
@@ -70,7 +70,7 @@ func (u *UserStore) UserDelete(ctx context.Context, email string) error {
 		return err
 	}
 
-	if err := u.store.Delete(&model.User{},"email = ?", user.Email).Error; err != nil {
+	if err := u.store.Delete(&model.User{}, "email = ?", user.Email).Error; err != nil {
 		return err
 	}
 
@@ -79,12 +79,12 @@ func (u *UserStore) UserDelete(ctx context.Context, email string) error {
 
 // UserUpdate implements repository.UserRepository.
 func (u *UserStore) UserUpdate(ctx context.Context, email string, user *model.NewUser) (string, error) {
-	updateTime :=  time.Now()
-	
+	updateTime := time.Now()
+
 	usr := model.NewUser{
-		Name:     user.Name,
-		Email:    user.Email,
-		Password: user.Password,
+		Name:      user.Name,
+		Email:     user.Email,
+		Password:  user.Password,
 		UpdatedAt: &updateTime,
 	}
 	foundUser, err := u.UserGetByEmail(ctx, email)
