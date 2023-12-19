@@ -25,3 +25,10 @@ publish:
 	git add .
 	git commit -m "$(MESSAGE)"
 	git push origin main
+
+
+db:
+	docker compose up -d
+
+downdb:
+	docker compose down
