@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"time"
 
 	"github.com/google/uuid"
 	"github.com/tabed23/auth-graphql/graph/model"
@@ -29,6 +30,8 @@ func (u *UserStore) UserCreate(ctx context.Context, input model.NewUser) (*model
 		Name:     input.Name,
 		Email:    input.Email,
 		Password: input.Password,
+		CreatedAt: time.Now(),
+		UpdatedAt: time.Now(),
 	}
 	tx := u.store.Create(usr).Error
 	if tx != nil {
@@ -76,10 +79,13 @@ func (u *UserStore) UserDelete(ctx context.Context, email string) error {
 
 // UserUpdate implements repository.UserRepository.
 func (u *UserStore) UserUpdate(ctx context.Context, email string, user *model.NewUser) (string, error) {
+	updateTime :=  time.Now()
+	
 	usr := model.NewUser{
 		Name:     user.Name,
 		Email:    user.Email,
 		Password: user.Password,
+		UpdatedAt: &updateTime,
 	}
 	foundUser, err := u.UserGetByEmail(ctx, email)
 	if err != nil {

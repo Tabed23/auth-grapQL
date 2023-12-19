@@ -2,13 +2,18 @@
 
 package model
 
+import (
+	"time"
+)
+
 type AuthOps struct {
 	Login    interface{} `json:"login"`
 	Register interface{} `json:"register"`
 }
 
 type NewUser struct {
-	Name     string `json:"name"`
-	Email    string `json:"email"`
-	Password string `json:"password"`
+	Name      string     `json:"name"`
+	Email     string     `json:"email"`
+	Password  string     `json:"password"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }

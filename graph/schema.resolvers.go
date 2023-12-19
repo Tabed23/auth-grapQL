@@ -8,11 +8,10 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/tabed23/auth-graphql/graph/model"
 	"github.com/tabed23/auth-graphql/service"
 	"github.com/tabed23/auth-graphql/utils"
 	"gorm.io/gorm"
-
-	"github.com/tabed23/auth-graphql/graph/model"
 )
 
 // Login is the resolver for the login field.
